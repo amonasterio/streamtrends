@@ -43,3 +43,4 @@ if start_date is not None and end_date is not None:
         file_name='salida.csv',
         mime='text/csv',
         )
+        st.line_chart(dfFinal)
