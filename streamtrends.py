@@ -1,6 +1,6 @@
 import streamlit as st, pandas as pd, time, sys,datetime           
 from pytrends.request import TrendReq
-from requests.packages.urllib3.util.retry import ResponseError
+from pytrends.exceptions import ResponseError
 
 def dateToStr(fecha):
     return fecha.strftime("%Y-%m-%d")
@@ -32,10 +32,10 @@ if start_date is not None and end_date is not None:
                     else:  
                         lista=df[df.columns.values[0]].values
                         dfFinal[df.columns.values[0]]=lista
-                    time.sleep(1)
+                    time.sleep(3)
                 cont=cont+1
             except ResponseError as e:
-                st.error("Response error: "+e.strerror)
+                st.error(kw_list[0]+" - Response error: "+e.args[0])
         csv=dfFinal.to_csv().encode('utf-8')
         st.download_button(
         label="Descargar como CSV",
